@@ -27,6 +27,8 @@ return {
 
 			-- Allows extra capabilities provided by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp",
+
+			"mfussenegger/nvim-jdtls",
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -40,6 +42,8 @@ return {
 					map("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
 					map("gr", builtin.lsp_references, "[G]oto [R]eferences")
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					map("gI", builtin.lsp_implementations, "[G]oto [I]mplementation")
+					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
@@ -61,7 +65,6 @@ return {
 				lua_ls = {},
 				gopls = {},
 				ts_ls = {},
-				jdtls = {},
 			}
 
 			require("mason").setup()
